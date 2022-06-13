@@ -23,7 +23,6 @@ with DAG("weather_dag",
          start_date=datetime(2022, 1, 1),
          schedule_interval=None,
          catchup=False) as dag:
-
     get_minsk_weather = PythonOperator(
         task_id="minsk_weather",
         python_callable=get_weather
