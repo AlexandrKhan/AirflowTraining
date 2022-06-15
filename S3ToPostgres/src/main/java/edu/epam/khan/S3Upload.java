@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
 import java.io.*;
 import java.sql.Connection;
@@ -14,11 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
-
 
 
 public class S3Upload {
@@ -27,12 +25,10 @@ public class S3Upload {
             (System.getenv("AWS_ACCESS_KEY"),
                     System.getenv("AWS_SECRET_KEY"));
 
-
     static AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
             .withRegion("us-east-1")
             .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
             .build();
-
 
     public static void main(String[] args) throws IOException, SQLException {
         String bucketName = args[0];
@@ -40,13 +36,17 @@ public class S3Upload {
         String csvFile = zipName.substring(0, zipName.lastIndexOf("."));
         String tableName = csvFile.substring(0, csvFile.lastIndexOf("."));
 
-        // Unpack gz from S3
-        S3Object object = s3Client.getObject(new GetObjectRequest(bucketName, zipName));
-        InputStream objectData = object.getObjectContent();
-        GZIPInputStream gzipInputStream = new GZIPInputStream(objectData);
-        ObjectMetadata metadata = new ObjectMetadata();
-        s3Client.putObject(bucketName, csvFile, gzipInputStream, metadata);
-        objectData.close();
+        // Unpack and copy csv
+        S3Object o = s3Client.getObject(bucketName, zipName);
+        try (InputStream inputStream = new GZIPInputStream(o.getObjectContent())) {
+            try (OutputStream outStream = new S3OutputStream(s3Client, bucketName, csvFile)) {
+                byte[] buffer = new byte[8192];
+                int n;
+                while ((n = inputStream.read(buffer)) != -1) {
+                    outStream.write(buffer, 0, n);
+                }
+            }
+        }
 
         // Create and fill PSQL table from CSV
         S3Object csv_object = s3Client.getObject(new GetObjectRequest(bucketName, csvFile));
