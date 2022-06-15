@@ -8,14 +8,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-/**
- * Hello world!
- */
 public class WeatherAPI {
-    private static final HttpClient httpClient = HttpClient.newBuilder()
-//            .version(HttpClient.Version.HTTP_1_1)
-//            .connectTimeout(Duration.ofSeconds(10))
-            .build();
+    private static final HttpClient httpClient = HttpClient.newBuilder().build();
 
     public static void main(String[] args) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()

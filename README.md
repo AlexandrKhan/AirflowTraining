@@ -27,9 +27,21 @@
     2. Postgres
    ![](screen/11_pg_conn.PNG)
 3. Before DAG run
+
 ![](screen/12_pg_before_dag.PNG)
 ![](screen/13_s3_before_dag.PNG)
 4. After DAG run
 ![](screen/14_s3_dag_run.PNG)
 ![](screen/15_s3_after_dag.PNG)
 ![](screen/16_postgres_after_dag.PNG)
+
+## Task 3. S3 (CSV) to Postgres - Java in Docker
+1. Load archive with CSV into S3
+2. Change bucketname and filename in DAG if needed
+3. cd S3ToPostgres
+4. mvn clean compile assembly:single
+5. docker build -t khan/s3postgres:1.0 .
+6. Trigger DAG
+![](screen/17_s3_java_dag.PNG)
+![](screen/18.s3_pg_java_python.PNG)
+![](screen/19.s3_java_python.PNG)
