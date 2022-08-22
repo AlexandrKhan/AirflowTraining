@@ -1,0 +1,30 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "public.countries_python.warning",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "max_value": 1000,
+        "min_value": 5
+      },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "citations": [
+      {
+        "batch_request": {
+          "data_asset_name": "public.countries_python",
+          "data_connector_name": "default_inferred_data_connector_name",
+          "datasource_name": "postgres_airflow",
+          "limit": 1000
+        },
+        "citation_date": "2022-08-19T06:21:38.797703Z",
+        "comment": "Created suite added via CLI"
+      }
+    ],
+    "great_expectations_version": "0.15.18"
+  }
+}
