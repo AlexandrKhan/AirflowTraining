@@ -1,22 +1,16 @@
-FROM python:3-slim
-
-ARG BUILD_DATE                                                                                                                                                       
-ARG VCS_REF
-
-ENV PG_AIRFLOW_HOST postgres
-ENV PG_AIRFLOW_PORT 5432
-ENV PG_AIRFLOW_USER airflow
-ENV PG_AIRFLOW_PASSWORD airflow
-ENV PG_AIRFLOW_DATABASE airflow
+FROM python:3.7-slim-buster
 
 ADD requirements.txt ./
 RUN apt-get update -yqq \
+  && apt-get upgrade -yqq\
+  && apt install vim -yqq\
   && apt-get install --no-install-recommends -yqq ca-certificates \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache \
   && pip install --upgrade pip \
-  && pip install --no-cache-dir -r requirements.txt
+  && pip install --no-cache-dir -r requirements.txt \
+  && pip install sqlalchemy==1.3.24 \
+  && pip install boto3==1.24.25 \
+  && pip install botocore==1.27.25
 
-# Run great_expectations
 ADD ./great_expectations ./great_expectations
-CMD ["great_expectations"]

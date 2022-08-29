@@ -42,6 +42,7 @@ def unpack_and_copy_zip(bucketname, filename, target_filename):
         with open(f's3://{bucketname}/{target_filename}', 'w', transport_params=dict(client=client)) as fout:
             for line in fin:
                 fout.write(line)
+
 def csv_to_postgres(bucketname, filename):
     conn = psycopg2.connect(
         dbname=postgres_connection.schema,
@@ -70,6 +71,7 @@ def csv_to_postgres(bucketname, filename):
         print(sql_create_table)
         cur.execute(sql_create_table)
         cur.copy_from(bucketfile, f'{filename}', sep=",")
+        cur.execute(f"CREATE MATERIALIZED VIEW {filename}_mv AS SELECT * FROM {filename}")
 
     cur.close()
     conn.commit()
@@ -97,19 +99,4 @@ with DAG("s3_to_postgres_dag",
         dag=dag
     )
 
-    great_expectations_check = PythonOperator(
-        task_id='ge_python',
-        python_callable=run_ge,
-        dag=dag
-    )
-
-    great_expectations_docker = DockerOperator(
-        task_id='ge_docker',
-        image='great_expectations:0.15.18',
-        api_version='auto',
-        remove=True,
-        command='great_expectations checkpoint run my_checkpoint',
-        network_mode='bridge',
-        docker_url='unix://var/run/docker.sock'
-    )
-    unpack_zip >> csv_to_postgres >> [great_expectations_check, great_expectations_docker]
+    unpack_zip >> csv_to_postgres

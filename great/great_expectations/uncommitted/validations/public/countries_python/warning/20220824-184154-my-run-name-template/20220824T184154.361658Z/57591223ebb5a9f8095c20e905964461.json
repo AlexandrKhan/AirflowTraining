@@ -1,0 +1,113 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "public.countries_python",
+      "data_connector_name": "default_inferred_data_connector_name",
+      "datasource_name": "postgres_airflow"
+    },
+    "batch_markers": {
+      "ge_load_time": "20220824T144154.376388Z"
+    },
+    "batch_spec": {
+      "batch_identifiers": {},
+      "data_asset_name": "public.countries_python",
+      "schema_name": "public",
+      "table_name": "countries_python",
+      "type": "table"
+    },
+    "checkpoint_name": "my_checkpoint",
+    "expectation_suite_name": "public.countries_python.warning",
+    "great_expectations_version": "0.15.18",
+    "run_id": {
+      "run_name": "20220824-184154-my-run-name-template",
+      "run_time": "2022-08-24T18:41:54.361658+00:00"
+    },
+    "validation_time": "20220824T144154.521457Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_start_with_vowel",
+        "kwargs": {
+          "batch_id": "57591223ebb5a9f8095c20e905964461",
+          "column": "country"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 24,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [
+          {
+            "count": 4,
+            "value": "Belarus"
+          },
+          {
+            "count": 4,
+            "value": "Georgia"
+          },
+          {
+            "count": 4,
+            "value": "Poland"
+          },
+          {
+            "count": 4,
+            "value": "USA"
+          },
+          {
+            "count": 3,
+            "value": "Russia"
+          },
+          {
+            "count": 1,
+            "value": "Germany"
+          }
+        ],
+        "partial_unexpected_index_list": null,
+        "partial_unexpected_list": [
+          "Belarus",
+          "Georgia",
+          "Poland",
+          "USA",
+          "Russia",
+          "Belarus",
+          "Georgia",
+          "Poland",
+          "USA",
+          "Russia",
+          "Belarus",
+          "Georgia",
+          "Poland",
+          "USA",
+          "Russia",
+          "Germany",
+          "Belarus",
+          "Georgia",
+          "Poland",
+          "USA"
+        ],
+        "unexpected_count": 21,
+        "unexpected_percent": 87.5,
+        "unexpected_percent_nonmissing": 87.5,
+        "unexpected_percent_total": 87.5
+      },
+      "success": false
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 1,
+    "success_percent": 0.0,
+    "successful_expectations": 0,
+    "unsuccessful_expectations": 1
+  },
+  "success": false
+}

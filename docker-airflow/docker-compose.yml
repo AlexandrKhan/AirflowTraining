@@ -29,6 +29,11 @@ services:
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
             - REDIS_PASSWORD=redispass
+            - PG_AIRFLOW_HOST=postgres
+            - PG_AIRFLOW_PORT=5432
+            - PG_AIRFLOW_USER=airflow
+            - PG_AIRFLOW_PASSWORD=airflow
+            - PG_AIRFLOW_DATABASE=airflow
         volumes:
             - ./dags:/usr/local/airflow/dags
             - /var/run/docker.sock:/var/run/docker.sock
@@ -73,6 +78,11 @@ services:
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
             - REDIS_PASSWORD=redispass
+            - PG_AIRFLOW_HOST=postgres
+            - PG_AIRFLOW_PORT=5432
+            - PG_AIRFLOW_USER=airflow
+            - PG_AIRFLOW_PASSWORD=airflow
+            - PG_AIRFLOW_DATABASE=airflow
         command: scheduler
 
     worker:
@@ -92,6 +102,11 @@ services:
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
             - REDIS_PASSWORD=redispass
+            - PG_AIRFLOW_HOST=postgres
+            - PG_AIRFLOW_PORT=5432
+            - PG_AIRFLOW_USER=airflow
+            - PG_AIRFLOW_PASSWORD=airflow
+            - PG_AIRFLOW_DATABASE=airflow
         command: worker
 
 #    great-expectations:

@@ -64,7 +64,7 @@ RUN set -ex \
     && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
     && pip install markupsafe==2.0.1 \
     && pip install wtforms==2.3.3 \
-    && pip install SQLAlchemy==1.3.15 \
+    && pip install SQLAlchemy==1.3.24 \
     && pip install 'redis==3.2' \
     && pip install apache-airflow-backport-providers-docker \
     && pip install apache-airflow-backport-providers-amazon \
