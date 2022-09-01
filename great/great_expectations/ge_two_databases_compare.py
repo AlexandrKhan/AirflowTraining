@@ -35,10 +35,10 @@ profiler = UserConfigurableProfiler(
 expectation_suite_name = "compare_two_tables"
 
 # Comment below code to not generate expectations from dataset_1 every time
-suite = profiler.build_suite()
-context.save_expectation_suite(
-    expectation_suite=suite, expectation_suite_name=expectation_suite_name
-)
+# suite = profiler.build_suite()
+# context.save_expectation_suite(
+#     expectation_suite=suite, expectation_suite_name=expectation_suite_name
+# )
 
 my_checkpoint_name = "comparison_checkpoint"
 

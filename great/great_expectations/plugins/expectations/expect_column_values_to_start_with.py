@@ -10,7 +10,7 @@ from great_expectations.expectations.metrics import (ColumnMapMetricProvider,
 
 
 class CustomSqlDataset(ColumnMapMetricProvider):
-    condition_metric_name = "expect_column_values_to_start_with_vowel"
+    condition_metric_name = "expect_column_values_to_start_with"
     condition_value_keys = ("start",)
 
     @column_condition_partial(engine=SqlAlchemyExecutionEngine)
@@ -18,7 +18,7 @@ class CustomSqlDataset(ColumnMapMetricProvider):
         return column.startswith(start)
 
 
-class ExpectColumnValuesToStartWithVowel(ColumnMapExpectation):
+class ExpectColumnValuesToStartWith(ColumnMapExpectation):
     """
     Expect the column value to start with substring ("start" :parameter)
     """
@@ -66,7 +66,7 @@ class ExpectColumnValuesToStartWithVowel(ColumnMapExpectation):
         }
     ]
 
-    map_metric = "expect_column_values_to_start_with_vowel"
+    map_metric = "expect_column_values_to_start_with"
     success_keys = ("mostly", "start")
     default_kwarg_values = {
         "start": "oa"
@@ -82,4 +82,4 @@ class ExpectColumnValuesToStartWithVowel(ColumnMapExpectation):
 
 
 if __name__ == "__main__":
-    ExpectColumnValuesToStartWithVowel().print_diagnostic_checklist()
+    ExpectColumnValuesToStartWith().print_diagnostic_checklist()

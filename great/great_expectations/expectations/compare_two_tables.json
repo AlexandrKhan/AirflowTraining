@@ -3,20 +3,19 @@
   "expectation_suite_name": "compare_two_tables",
   "expectations": [
     {
+      "expectation_type": "expect_table_row_count_to_equal_other_table",
+      "kwargs": {
+        "other_table_name": "countries_python"
+      },
+      "meta": {}
+    },
+    {
       "expectation_type": "expect_table_columns_to_match_ordered_list",
       "kwargs": {
         "column_list": [
           "country",
           "capital"
         ]
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_table_row_count_to_be_between",
-      "kwargs": {
-        "max_value": 104,
-        "min_value": 104
       },
       "meta": {}
     },

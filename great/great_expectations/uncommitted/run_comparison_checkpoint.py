@@ -31,7 +31,7 @@ result: CheckpointResult = data_context.run_checkpoint(
 
 if not result["success"]:
     print("Validation failed!")
-    sys.exit(1)
+    sys.exit(0)
 
 print("Validation succeeded!")
 sys.exit(0)

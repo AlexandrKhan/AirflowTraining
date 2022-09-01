@@ -24,7 +24,7 @@ from great_expectations.data_context import DataContext
 # data_context: DataContext = DataContext(context_root_dir="C:\\Users\\Aliaksandr_Khan\\IdeaProjects\\WeatherAPIJava\\great\\great_expectations")
 data_context: DataContext = DataContext(context_root_dir="/great_expectations")
 
-from expectations import expect_column_values_to_start_with_vowel
+from expectations import expect_column_values_to_start_with
 
 result: CheckpointResult = data_context.run_checkpoint(
     checkpoint_name="my_checkpoint",
